@@ -3,7 +3,7 @@ import './App.css';
 // import SignUp from './pages/signup/SignUp';
 import Home from './pages/Home/Home';
 import Sidebar from './components/sidebar/Sidebar';
-
+import { Route, Routes } from "react-router-dom";
 function App() { 
   return (
     <>
@@ -11,7 +11,14 @@ function App() {
       {/* <Login /> */}
       {/* <SignUp /> */}
       {/* <Sidebar /> */}
-      <Home />
+      {/* <Home /> */}
+
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} /> */}
+      </Routes>
     </div>
     </>
   )

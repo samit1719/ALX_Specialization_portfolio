@@ -1,20 +1,49 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const history = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Sample login logic (replace with actual logic)
-    if (email === 'user@example.com' && password === 'password123') {
-      console.log('Login successful');
-      history.push('/home'); // Redirect to home after successful login
-    } else {
-      console.log('Login failed. Invalid credentials.');
-      // Add error handling logic here if needed
+
+    try {
+      // Fetch users data from users.json
+      const response = await axios.get("/backend/users.json");
+      const users = response.data;
+
+      // Check if input email and password match any user
+      const user = users.find(
+        (user) => user.email === email && user.password === password
+      );
+
+      if (user) {
+        // If match found, request token from backend (replace with actual backend endpoint)
+        // const tokenResponse = await axios.post("/backend/login", {
+        //   email,
+        //   password,
+        // });
+
+        // const token = tokenResponse.data.token;
+
+        // // Store token in local storage or session storage for authentication
+        // localStorage.setItem("token", token);
+
+        // Redirect to Home.jsx
+        history("/home");
+      } else {
+        // If no match found, display error message
+        setErrorMessage("Wrong email or password");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error appropriately, e.g., display error message
     }
   };
 
@@ -22,11 +51,21 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="max-w-md w-full bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <div className="px-6 py-8">
-          <h2 className="text-3xl font-extrabold text-gray-200 text-center">Log in to your account</h2>
+          {/* Logo area */}
+          <div className="flex items-center justify-center mb-8">
+            <img src=".../assets/logo.png" alt="Logo" className="h-12 w-auto" />
+          </div>
+          {/* End of logo area */}
+          <h2 className="text-3xl font-extrabold text-gray-200 text-center">
+            Log in to your account
+          </h2>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             {/* Login form */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-300"
+              >
                 Email address
               </label>
               <div className="mt-1">
@@ -44,21 +83,30 @@ const LoginPage = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-300"
+              >
                 Password
               </label>
-              <div className="mt-1">
+              <div className="mt-1 relative">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-700"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-700 pr-10"
                   placeholder="Your password"
                 />
+                <span
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash className="text-gray-400" /> : <FaEye className="text-gray-400" />}
+                </span>
               </div>
             </div>
 
@@ -71,10 +119,18 @@ const LoginPage = () => {
               </button>
             </div>
           </form>
+          {errorMessage && (
+            <div className="text-center mt-4">
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </div>
+          )}
           <div className="text-center mt-4">
             <p className="text-sm text-gray-300">
-              Don't have an account?{' '}
-              <Link to="/signup" className="font-medium text-indigo-400 hover:text-indigo-200">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="font-medium text-indigo-400 hover:text-indigo-200"
+              >
                 Sign up
               </Link>
             </p>

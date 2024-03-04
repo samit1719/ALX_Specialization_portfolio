@@ -1,11 +1,11 @@
 // this file represents a list of conversations from conversation file  in the sidebar
 
-import React from 'react';
-import Conversation from './Conversation';
+import React from "react";
+import Conversation from "./Conversation";
 
 const Conversations = () => {
   return (
-    <div className='py-2 flex flex-col overflow-auto'>
+    <div className="py-2 flex flex-col overflow-auto">
       <Conversation />
       <Conversation />
       <Conversation />
@@ -13,10 +13,9 @@ const Conversations = () => {
       <Conversation />
       <Conversation /> */}
     </div>
-  )
-}
+  );
+};
 export default Conversations;
-
 
 // import React from 'react';
 // import Conversation from './Conversation';
@@ -32,4 +31,3 @@ export default Conversations;
 //   )
 // }
 // export default Conversations;
-

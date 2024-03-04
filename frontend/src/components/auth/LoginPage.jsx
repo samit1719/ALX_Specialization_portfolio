@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
@@ -8,43 +8,12 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const history = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Fetch users data from users.json
-      const response = await axios.get("/backend/users.json");
-      const users = response.data;
-
-      // Check if input email and password match any user
-      const user = users.find(
-        (user) => user.email === email && user.password === password
-      );
-
-      if (user) {
-        // If match found, request token from backend (replace with actual backend endpoint)
-        // const tokenResponse = await axios.post("/backend/login", {
-        //   email,
-        //   password,
-        // });
-
-        // const token = tokenResponse.data.token;
-
-        // // Store token in local storage or session storage for authentication
-        // localStorage.setItem("token", token);
-
-        // Redirect to Home.jsx
-        history("/home");
-      } else {
-        // If no match found, display error message
-        setErrorMessage("Wrong email or password");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle error appropriately, e.g., display error message
-    }
+    
   };
 
   return (

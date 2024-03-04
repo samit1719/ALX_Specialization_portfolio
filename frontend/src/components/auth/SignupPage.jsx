@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -15,26 +15,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      return;
-    }
-
-    try {
-      // Send sign-up data to backend
-      const response = await axios.post('/backend/signup.js', { email, password });
-      setSuccessMessage(response.data.message);
-      setErrorMessage('');
-    } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
-        setSuccessMessage('');
-      } else {
-        console.error('Error:', error.message);
-        setErrorMessage('An error occurred');
-        setSuccessMessage('');
-      }
-    }
+    
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -21,8 +21,9 @@ const LoginPage = () => {
       <div className="max-w-md w-full bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <div className="px-6 py-8">
           {/* Logo area */}
+
           <div className="flex items-center justify-center mb-8">
-            <img src=".../assets/logo.png" alt="Logo" className="h-12 w-auto" />
+              <img src={logo} alt="Logo" className="h-12 w-auto" />
           </div>
           {/* End of logo area */}
           <h2 className="text-3xl font-extrabold text-gray-200 text-center">

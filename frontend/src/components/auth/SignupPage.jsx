@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import logo from "../../assets/logo.png";
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const SignupPage = () => {
         <div className="px-6 py-8">
           {/* Logo area */}
           <div className="flex items-center justify-center mb-8">
-            <img src=".../assets/logo.png" alt="Logo" className="h-12 w-auto" />
+            <img src={logo}  alt="Logo" className="h-12 w-auto" />
           </div>
           {/* End of logo area */}
           <h2 className="text-3xl font-extrabold text-gray-200 text-center">Create a new account</h2>
